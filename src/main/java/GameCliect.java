@@ -13,6 +13,12 @@ public class GameCliect extends JComponent {
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
         this.setPreferredSize(new Dimension(ScreenWidth,ScreenHeight));
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon("assets/images/itankD.png").getImage()
+        ,400,50,null);
     }
 }
