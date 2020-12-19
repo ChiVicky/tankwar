@@ -15,8 +15,7 @@ public class TankGame {
         jFrame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                System.out.println((char)e.getKeyCode());
+                gameCliect.keyPressed(e);
             }
 
             @Override
