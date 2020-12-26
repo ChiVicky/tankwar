@@ -1,10 +1,7 @@
-import object.Direction;
-import object.Tank;
-import object.Wall;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BaseMultiResolutionImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     private Tank playerTank;//玩家坦克
     private List<Tank> enemyTanks = new ArrayList<>();//敵方坦克
     private List<Wall> walls = new ArrayList<>();//牆
+    private Image BackGroundImg;
 
     GameCliect() {
         this(800, 600);//設定畫面大小
@@ -43,20 +41,30 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     }
 
     public void init() {
-//        playerTank = new Tank(100, 100,Tank.UP);
-        playerTank = new Tank(400, 50, Direction.DOWN);
+//        BackGroundImg = new ImageIcon("assets/images/sand.jpg").getImage();
+        BackGroundImg = Tool.getImage("sand.jpg");
+        Image[] brickImage = {Tool.getImage("brick.png")};
+        Image[] iTankImage = new Image[8];
+        Image[] eTankImage = new Image[8];
+        String[] sub = {"U", "D", "L", "R", "LU", "RU", "LD", "RD"};
+        for (int i = 0; i < iTankImage.length; i++) {
+            iTankImage[i] = Tool.getImage("itank" + sub[i] + ".png");
+            eTankImage[i] = Tool.getImage("etank" + sub[i] + ".png");
+        }
+
+        playerTank = new Tank(400, 50, Direction.DOWN,iTankImage);
 
         for (int i = 0; i < 3; i++) {//3列
             for (int j = 0; j < 4; j++) {//4行
-                enemyTanks.add(new Tank(250+j*90, 300+i*90, Direction.UP,true));
+                enemyTanks.add(new Tank(250 + j * 90, 300 + i * 90, Direction.UP, true,eTankImage));
             }
         }
-        walls.add(new Wall(200,150,true,15));
-        walls.add(new Wall(100,150,false,13));
-        walls.add(new Wall(700,150,false,13));
-
-//        playerTank = new Tank(300, 100,Tank.LEFT);
-//        playerTank = new Tank(400, 100, Direction.RIGHT);
+        Image[] images = {
+                new ImageIcon("assets/images/brick.png").getImage()
+        };
+        walls.add(new Wall(200, 150, true, 15, images));
+        walls.add(new Wall(100, 150, false, 13, images));
+        walls.add(new Wall(700, 150, false, 13, images));
     }
 
     @Override
@@ -64,7 +72,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, ScreenWidth, ScreenHeight);
-//        g.drawImage(playerTank.getImage(), playerTank.getX(), playerTank.getY(), null);
+        g.drawImage(BackGroundImg, 0, 0, null);
         playerTank.draw(g);
         for (Tank tank : enemyTanks) {
             tank.draw(g);
@@ -79,27 +87,17 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 dirs[0] = true;
-//                playerTank.setDirection(Direction.UP);
-//                playerTank.setY(playerTank.getY() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_DOWN:
                 dirs[1] = true;
-//                playerTank.setDirection(Direction.DOWN);
-//                playerTank.setY(playerTank.getY() + playerTank.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
                 dirs[2] = true;
-//                playerTank.setDirection(Direction.LEFT);
-//                playerTank.setX(playerTank.getX() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_RIGHT:
                 dirs[3] = true;
-//                playerTank.setDirection(Direction.RIGHT);
-//                playerTank.setX(playerTank.getX() + playerTank.getSpeed());
                 break;
         }
-//        repaint();        //重繪操作
-//        playerTank.move();
     }
 
     public void keyReleased(KeyEvent e) {
@@ -107,26 +105,16 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 dirs[0] = false;
-//                playerTank.setDirection(Direction.UP);
-//                playerTank.setY(playerTank.getY() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_DOWN:
                 dirs[1] = false;
-//                playerTank.setDirection(Direction.DOWN);
-//                playerTank.setY(playerTank.getY() + playerTank.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
                 dirs[2] = false;
-//                playerTank.setDirection(Direction.LEFT);
-//                playerTank.setX(playerTank.getX() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_RIGHT:
                 dirs[3] = false;
-//                playerTank.setDirection(Direction.RIGHT);
-//                playerTank.setX(playerTank.getX() + playerTank.getSpeed());
                 break;
         }
-//        repaint();
-//        playerTank.move();
     }
 }
