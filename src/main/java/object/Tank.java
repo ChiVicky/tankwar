@@ -91,7 +91,6 @@ public class Tank {
                 x+= speed;
                 y+= speed;
                 break;
-
         }
 }
 public void determineDirection(){
@@ -135,8 +134,18 @@ public void determineDirection(){
         }
         return true;
     }
+
+    public  boolean isMoving(){
+        for(int i=0;i< dirs.length;i++){
+            if(dirs[i]){
+                return true;//偵測到一個按鍵按下時才移動坦克
+            }
+        }
+        return false;
+    }
     public void draw(Graphics g){
-        if(!isStop()){
+//        if(!isStop()){
+        if(isMoving()){
             determineDirection();
             move();
         }
