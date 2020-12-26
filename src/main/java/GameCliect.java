@@ -5,17 +5,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+//主遊戲邏輯跟圖形顯示(JComponent)
+public class GameCliect extends JComponent { //GameClient繼承JComponent類別(擁有繪製功能)
 
-public class GameCliect extends JComponent {
-
-    private int ScreenWidth;
-    private int ScreenHeight;
-
-    //玩家坦克
-    private Tank playerTank;
+    private int ScreenWidth; //視窗寬度
+    private int ScreenHeight;//視窗長度
+    private Tank playerTank;//玩家坦克
 
     GameCliect() {
-        this(800, 600);
+        this(800, 600);//設定畫面大小
     }
 
     public GameCliect(int screenWidth, int screenHeight) {
