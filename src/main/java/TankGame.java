@@ -4,8 +4,10 @@ import java.awt.event.KeyEvent;
 
 //主視窗顯示跟按鍵控制(JFrame)
 public class TankGame {
+
+    public static GameCliect gameCliect;
     public static void main(String[] args) {
-        GameCliect gameCliect = new GameCliect();
+         gameCliect = new GameCliect();
         JFrame jFrame = new JFrame();                           //宣告JFrame物件(顯示的視窗)
         jFrame.setTitle("坦克大戰遊戲");
         jFrame.add(gameCliect);                                 //將GameClient物件進行裝載(使用JFrame.add方法)
@@ -25,5 +27,8 @@ public class TankGame {
                 gameCliect.keyReleased(e);
             }
         });
+    }
+    public static GameCliect getGameCliect() {
+        return gameCliect;
     }
 }

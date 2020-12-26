@@ -89,6 +89,16 @@ public class Tank extends GameObject {//繼承至GameObject
                 y += speed;
                 break;
         }
+        if(x<0){
+            x=0;
+        }else if(x>TankGame.getGameCliect().getScreenWidth()-width){
+            x=TankGame.getGameCliect().getScreenWidth()-width;
+        }
+        if(y<0){
+            y=0;
+        }else if(y>TankGame.getGameCliect().getScreenHeight()-height){
+            y=TankGame.getGameCliect().getScreenHeight()-height;
+        }
     }
 
     public void determineDirection() {

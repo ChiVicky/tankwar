@@ -1,3 +1,5 @@
+import object.GameObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,6 +16,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     private List<Tank> enemyTanks = new ArrayList<>();//敵方坦克
     private List<Wall> walls = new ArrayList<>();//牆
     private Image BackGroundImg;
+   private List<GameObject> objects = new ArrayList<>();//使用父類別進行集合類 型宣告
 
     GameCliect() {
         this(800, 600);//設定畫面大小
@@ -66,6 +69,9 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         walls.add(new Wall(200, 150, true, 15, images));
         walls.add(new Wall(100, 150, false, 13, images));
         walls.add(new Wall(700, 150, false, 13, images));
+     objects.add(playerTank);
+     objects.addAll(walls);
+     objects.addAll(enemyTanks);
     }
 
     @Override
@@ -74,12 +80,15 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, ScreenWidth, ScreenHeight);
         g.drawImage(BackGroundImg, 0, 0, null);
-        playerTank.draw(g);
-        for (Tank tank : enemyTanks) {
-            tank.draw(g);
-        }
-        for (Wall wall : walls) {
-            wall.draw(g);
+//        playerTank.draw(g);
+//        for (Tank tank : enemyTanks) {
+//            tank.draw(g);
+//        }
+//        for (Wall wall : walls) {
+//            wall.draw(g);
+//        }
+        for(GameObject object :objects){//優點:統一控管遊戲物件
+            object.draw(g);
         }
     }
 
@@ -117,5 +126,13 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
                 dirs[3] = false;
                 break;
         }
+    }
+
+    public int getScreenWidth() {
+        return ScreenWidth;
+    }
+
+    public int getScreenHeight() {
+        return ScreenHeight;
     }
 }
