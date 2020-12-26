@@ -46,7 +46,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 
         for (int i = 0; i < 3; i++) {//3列
             for (int j = 0; j < 4; j++) {//4行
-                enemyTanks.add(new Tank(250+j*90, 300+i*90, Direction.UP));
+                enemyTanks.add(new Tank(250+j*90, 300+i*90, Direction.UP,true));
             }
         }
 //        playerTank = new Tank(300, 100,Tank.LEFT);
