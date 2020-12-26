@@ -49,62 +49,65 @@ public class GameCliect extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(playerTank.getImage(), playerTank.getX(), playerTank.getY(), null);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,ScreenWidth,ScreenHeight);
+//        g.drawImage(playerTank.getImage(), playerTank.getX(), playerTank.getY(), null);
+    playerTank.draw(g);
     }
 
     public void keyPressed(KeyEvent e) {
-//        boolean[] dirs = playerTank.getDirs();
+        boolean[] dirs = playerTank.getDirs();
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-//                dirs[0]=true;
+                dirs[0]=true;
 //                playerTank.setDirection(Direction.UP);
 //                playerTank.setY(playerTank.getY() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_DOWN:
-//                dirs[1]=true;
+                dirs[1]=true;
 //                playerTank.setDirection(Direction.DOWN);
 //                playerTank.setY(playerTank.getY() + playerTank.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
-//                dirs[2]=true;
+                dirs[2]=true;
 //                playerTank.setDirection(Direction.LEFT);
 //                playerTank.setX(playerTank.getX() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_RIGHT:
-//                dirs[3]=true;
+                dirs[3]=true;
 //                playerTank.setDirection(Direction.RIGHT);
 //                playerTank.setX(playerTank.getX() + playerTank.getSpeed());
                 break;
         }
 //        repaint();
-        playerTank.move();
+//        playerTank.move();
     }
 
     public void keyReleased(KeyEvent e) {
-//        boolean[] dirs = playerTank.getDirs();
+        boolean[] dirs = playerTank.getDirs();
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-//                dirs[0]=false;
+                dirs[0]=false;
 //                playerTank.setDirection(Direction.UP);
 //                playerTank.setY(playerTank.getY() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_DOWN:
-//                dirs[1]=false;
+                dirs[1]=false;
 //                playerTank.setDirection(Direction.DOWN);
 //                playerTank.setY(playerTank.getY() + playerTank.getSpeed());
                 break;
             case KeyEvent.VK_LEFT:
-//                dirs[2]=false;
+                dirs[2]=false;
 //                playerTank.setDirection(Direction.LEFT);
 //                playerTank.setX(playerTank.getX() - playerTank.getSpeed());
                 break;
             case KeyEvent.VK_RIGHT:
-//                dirs[3]=false;
+                dirs[3]=false;
 //                playerTank.setDirection(Direction.RIGHT);
 //                playerTank.setX(playerTank.getX() + playerTank.getSpeed());
                 break;
         }
 //        repaint();
-        playerTank.move();
+//        playerTank.move();
     }
 }

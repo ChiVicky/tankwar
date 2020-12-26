@@ -52,7 +52,16 @@ public class Tank {
     public void setY(int y) {
         this.y = y;
     }
-public void move(){
+
+    public Tank(boolean[] dirs) {
+        this.dirs = dirs;
+    }
+
+    public boolean[] getDirs() {
+        return dirs;
+    }
+
+    public void move(){
         switch(direction){
             case UP:
                 y-= speed;
@@ -85,8 +94,9 @@ public void move(){
 
         }
 }
-private void getDirs(){
-         if (dirs[0] &&  dirs[2] && !dirs[1] && !dirs[3]) direction = Direction.UP_LEFT;
+public void determineDirection(){
+        //0:上,1:下,2:左,3:右
+    if (dirs[0] &&  dirs[2] && !dirs[1] && !dirs[3]) direction = Direction.UP_LEFT;
     else if (dirs[0] &&  dirs[3] && !dirs[1] && !dirs[2]) direction = Direction.UP_RIGHT;
     else if (dirs[1] &&  dirs[2] && !dirs[0] && !dirs[3]) direction = Direction.DOWN_LEFT;
     else if (dirs[1] &&  dirs[3] && !dirs[0] && !dirs[2]) direction = Direction.DOWN_RIGHT;
@@ -94,8 +104,8 @@ private void getDirs(){
     else if (dirs[1] && !dirs[2] && !dirs[3] && !dirs[0]) direction = Direction.DOWN;
     else if (dirs[2] && !dirs[3] && !dirs[0] && !dirs[1]) direction = Direction.LEFT;
     else if (dirs[3] && !dirs[0] && !dirs[1] && !dirs[2]) direction = Direction.RIGHT;
-
 }
+
     public Image getImage(){
         if(direction==Direction.UP)
         return new ImageIcon("assets/images/itankU.png")  .getImage();
@@ -115,5 +125,21 @@ private void getDirs(){
             return new ImageIcon("assets/images/itankRD.png")  .getImage();
 
         return null;
+    }
+
+    public  boolean isStop(){
+        for(int i=0;i< dirs.length;i++){
+            if(dirs[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void draw(Graphics g){
+        if(!isStop()){
+            determineDirection();
+            move();
+        }
+        g.drawImage(getImage(),x,y,null);
     }
 }
