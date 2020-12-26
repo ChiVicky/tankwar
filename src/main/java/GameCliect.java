@@ -47,6 +47,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         Image[] iTankImage = new Image[8];
         Image[] eTankImage = new Image[8];
         String[] sub = {"U", "D", "L", "R", "LU", "RU", "LD", "RD"};
+        //節省每次讀取圖形的時間，記憶體也只會有一份圖形
         for (int i = 0; i < iTankImage.length; i++) {
             iTankImage[i] = Tool.getImage("itank" + sub[i] + ".png");
             eTankImage[i] = Tool.getImage("etank" + sub[i] + ".png");

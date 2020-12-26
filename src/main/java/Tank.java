@@ -3,21 +3,24 @@ import object.GameObject;
 import javax.swing.*;
 import java.awt.*;
 
-public class Tank extends GameObject {
-    //    private int x;                          //視窗x軸
-    //    private int y;                          //視窗y軸
+public class Tank extends GameObject {//繼承至GameObject
+    //    private int x;                    //視窗x軸
+    //    private int y;                    //視窗y軸
+
     private Direction direction;            //方向
     private int speed;                      //速度
     private boolean[] dirs = new boolean[4];//新增一個boolean變數->用來使用複合按鍵
     private boolean enemy;                  //新增一個boolean變數->用來辨識敵方坦克
 
 
+    //傳入圖形Image[] image(坦克有多種圖形)
     public Tank(int x, int y, Direction direction, Image[] image) {
         this(x, y, direction, false, image);
     }
 
+    //傳入圖形Image[] image(坦克有多種圖形)
     public Tank(int x, int y, Direction direction, boolean enemy, Image[] image) {
-        super(x, y, image);
+        super(x, y, image);//需呼叫父類別的建構方法
         this.direction = direction;
         speed = 5;
         this.enemy = enemy;
@@ -100,11 +103,12 @@ public class Tank extends GameObject {
         else if (dirs[3] && !dirs[0] && !dirs[1] && !dirs[2]) direction = Direction.RIGHT;
     }
 
+//優化讀取圖形方法->移除getImage方法
 //    public Image getImage() {
 //        String name = enemy ? "etank" : "itank";
 //
 //        if (direction == Direction.UP)
-//            return new ImageIcon("assets/images/" + name + "U.png").getImage();
+//            return new ImageIcon("assets/images/" + name + "U.png").getImage();//內部每次讀取圖檔耗時跟效能，改成統一由外部讀取後，傳入物件內進行繪製
 //        if (direction == Direction.DOWN)
 //            return new ImageIcon("assets/images/" + name + "D.png").getImage();
 //        if (direction == Direction.LEFT)
@@ -147,6 +151,7 @@ public class Tank extends GameObject {
             determineDirection();
             move();
         }
-        g.drawImage(image[direction.ordinal()], x, y, null);
+        //改寫坦克繪製方法(不每次重複讀取遊戲圖片)
+        g.drawImage(image[direction.ordinal()], x, y, null);//按照方向(direction.ordinal())位置取圖形
     }
 }

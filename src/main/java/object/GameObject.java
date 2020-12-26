@@ -1,20 +1,20 @@
 package object;
 
 import java.awt.*;
-
-public abstract class GameObject {
-    protected int x;
-    protected int y;
-    protected Image[] image;
-    protected int width;
-    protected int height;
+//所有遊戲物件的父類別->GameObject
+public abstract class GameObject { //抽象類別(不能產生實體)
+    protected int x;            //物件x軸位置
+    protected int y;            //物件y軸位置
+    protected Image[] image;    //物件的圖形陣列
+    protected int width;        //物件的寬度
+    protected int height;       //物件的長度
 
     public GameObject(int x, int y, Image[] image) {
         this.x = x;
         this.y = y;
         this.image = image;
-        width=image[0].getWidth(null);
-        height=image[0].getHeight(null);
+        width=image[0].getWidth(null);  //提取寬度
+        height=image[0].getHeight(null);//提取長度
     }
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g);//繼承需覆寫draw方法
 }
