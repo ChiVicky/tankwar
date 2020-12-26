@@ -1,5 +1,6 @@
 import object.Direction;
 import object.Tank;
+import object.Wall;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     private int ScreenHeight;//視窗長度
     private Tank playerTank;//玩家坦克
     private List<Tank> enemyTanks = new ArrayList<>();//敵方坦克
+    private List<Wall> walls = new ArrayList<>();//牆
 
     GameCliect() {
         this(800, 600);//設定畫面大小
@@ -49,6 +51,10 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
                 enemyTanks.add(new Tank(250+j*90, 300+i*90, Direction.UP,true));
             }
         }
+        walls.add(new Wall(200,150,true,15));
+        walls.add(new Wall(100,150,false,13));
+        walls.add(new Wall(700,150,false,13));
+
 //        playerTank = new Tank(300, 100,Tank.LEFT);
 //        playerTank = new Tank(400, 100, Direction.RIGHT);
     }
@@ -62,6 +68,9 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         playerTank.draw(g);
         for (Tank tank : enemyTanks) {
             tank.draw(g);
+        }
+        for (Wall wall : walls) {
+            wall.draw(g);
         }
     }
 
@@ -89,7 +98,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 //                playerTank.setX(playerTank.getX() + playerTank.getSpeed());
                 break;
         }
-//        repaint();
+//        repaint();        //重繪操作
 //        playerTank.move();
     }
 
