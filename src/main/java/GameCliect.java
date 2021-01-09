@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BaseMultiResolutionImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //主遊戲邏輯跟圖形顯示(JComponent)
@@ -16,10 +17,9 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     private List<Tank> enemyTanks = new ArrayList<>();//敵方坦克
     private List<Wall> walls = new ArrayList<>();//牆
     private Image BackGroundImg;
-    public static Image[] bulletImg= new Image[8];//子彈圖形
+    public static Image[] bulletImg = new Image[8];//子彈圖形
 
-   private List<GameObject> objects = new ArrayList<>();//使用父類別進行集合類 型宣告
-
+    private List<GameObject> objects = new ArrayList<>();//使用父類別進行集合類 型宣告
 
 
     GameCliect() {
@@ -61,11 +61,11 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
             bulletImg[i] = Tool.getImage("missile" + sub[i] + ".png");//增加子彈圖片
         }
 
-        playerTank = new Tank(400, 50, Direction.DOWN,iTankImage);
+        playerTank = new Tank(400, 50, Direction.DOWN, iTankImage);
 
         for (int i = 0; i < 3; i++) {//3列
             for (int j = 0; j < 4; j++) {//4行
-                enemyTanks.add(new Tank(220 + j * 120, 300 + i * 120, Direction.UP, true,eTankImage));
+                enemyTanks.add(new Tank(220 + j * 120, 300 + i * 120, Direction.UP, true, eTankImage));
             }
         }
         Image[] images = {
@@ -74,9 +74,9 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         walls.add(new Wall(200, 150, true, 15, images));
         walls.add(new Wall(100, 150, false, 13, images));
         walls.add(new Wall(750, 150, false, 13, images));
-     objects.add(playerTank);
-     objects.addAll(walls);
-     objects.addAll(enemyTanks);
+        objects.add(playerTank);
+        objects.addAll(walls);
+        objects.addAll(enemyTanks);
     }
 
     @Override
@@ -92,9 +92,18 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 //        for (Wall wall : walls) {
 //            wall.draw(g);
 //        }
-        for(GameObject object :objects){//優點:統一控管遊戲物件
+        for (GameObject object : objects) {//優點:統一控管遊戲物件
             object.draw(g);
         }
+        System.out.println(objects.size());
+
+        Iterator<GameObject> iterator = objects.iterator();
+        while (iterator.hasNext()) {
+            if (!iterator.next().isAlive()) {
+                iterator.remove();
+            }
+        }
+
     }
 
     public void keyPressed(KeyEvent e) {

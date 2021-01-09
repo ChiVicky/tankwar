@@ -10,6 +10,9 @@ public abstract class GameObject { //抽象類別(不能產生實體)
     protected Image[] image;    //物件的圖形陣列
     protected int width;        //物件的寬度
     protected int height;       //物件的長度
+    protected boolean alive;
+
+
 
     public GameObject(int x, int y, Image[] image) {
         this.x = x;
@@ -17,6 +20,14 @@ public abstract class GameObject { //抽象類別(不能產生實體)
         this.image = image;
         width=image[0].getWidth(null);  //提取寬度
         height=image[0].getHeight(null);//提取長度
+        alive=true;
+    }
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     //取得物件的寬度

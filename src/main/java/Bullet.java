@@ -12,9 +12,24 @@ public class Bullet extends Tank {
     //覆載顯示方法(draw)
     @Override
     public void draw(Graphics g) {
+        if(!alive){
+            return;
+        }
         move();     //八方向移動
         collision();//碰撞偵測(collision)
         g.drawImage(image[direction.ordinal()], x, y, null);
+    }
+
+    @Override
+    public boolean isCollisionBound() {
+        boolean isCollision = false;
+
+        isCollision= super.isCollisionBound();
+        if(isCollision){
+            alive =false;
+
+        }
+        return isCollision;
     }
 
     @Override
@@ -25,17 +40,20 @@ public class Bullet extends Tank {
                 continue;
             }
             if (gameObject instanceof Tank) {
-                if (enemy = ((Tank) gameObject).enemy) {
+                if (enemy == ((Tank) gameObject).enemy) {
                     continue;
                 }
             }
             if (getRectangle().intersects(gameObject.getRectangle())) {
+
+                if(gameObject instanceof Tank){
+                        gameObject.setAlive(false);
+                }
                 isCollision = true;
-                x = oldX;
-                y = oldY;
+                alive = false;
                 break;
             }
         }
-       return isCollision;
+        return isCollision;
     }
 }

@@ -24,8 +24,6 @@ public class Tank extends GameObject {//繼承至GameObject
         this.direction = direction;
         speed = 10;
         this.enemy = enemy;
-        width=(int)(width*0.88);
-        height=(int)(height*0.88);
     }
 
     public int getSpeed() {
@@ -165,6 +163,11 @@ public class Tank extends GameObject {//繼承至GameObject
         return isCollision;
     }
 
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(x,y,width,height);
+    }
+
     public void determineDirection() {
         //0:上,1:下,2:左,3:右
         if (dirs[0] && dirs[2] && !dirs[1] && !dirs[3]) direction = Direction.UP_LEFT;
@@ -220,6 +223,9 @@ public class Tank extends GameObject {//繼承至GameObject
     }
 
     public void draw(Graphics g) {
+        if(!alive){
+            return;
+        }
 //        if(!isStop()){
         if (isMoving()) {
             determineDirection();
