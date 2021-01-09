@@ -60,7 +60,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 
         for (int i = 0; i < 3; i++) {//3列
             for (int j = 0; j < 4; j++) {//4行
-                enemyTanks.add(new Tank(250 + j * 90, 300 + i * 90, Direction.UP, true,eTankImage));
+                enemyTanks.add(new Tank(220 + j * 120, 300 + i * 120, Direction.UP, true,eTankImage));
             }
         }
         Image[] images = {
@@ -68,7 +68,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         };
         walls.add(new Wall(200, 150, true, 15, images));
         walls.add(new Wall(100, 150, false, 13, images));
-        walls.add(new Wall(700, 150, false, 13, images));
+        walls.add(new Wall(750, 150, false, 13, images));
      objects.add(playerTank);
      objects.addAll(walls);
      objects.addAll(enemyTanks);
@@ -134,5 +134,9 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 
     public int getScreenHeight() {
         return ScreenHeight;
+    }
+
+    public List<GameObject> getObjects() {
+        return objects;
     }
 }

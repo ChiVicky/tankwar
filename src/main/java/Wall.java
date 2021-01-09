@@ -21,6 +21,11 @@ public class Wall extends GameObject {//繼承至GameObject
         this.bricks = bricks;
     }
 
+    @Override
+    public Rectangle getRectangle() {
+        return horizontal ? new Rectangle(x,y,bricks* width,height): new Rectangle(x,y,width,bricks*height);
+    }
+
     //需要實作draw方法
     public void draw(Graphics g) {
         if (horizontal) {

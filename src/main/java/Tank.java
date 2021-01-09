@@ -59,6 +59,8 @@ public class Tank extends GameObject {//繼承至GameObject
     }
 
     public void move() {
+        oldX=x;
+        oldY=y;
         switch (direction) {
             case UP:
                 y -= speed;
@@ -89,16 +91,68 @@ public class Tank extends GameObject {//繼承至GameObject
                 y += speed;
                 break;
         }
+//        if(x<0){
+//            x=0;
+//        }else if(x>TankGame.getGameCliect().getScreenWidth()-width){
+//            x=TankGame.getGameCliect().getScreenWidth()-width;
+//        }
+//        if(y<0){
+//            y=0;
+//        }else if(y>TankGame.getGameCliect().getScreenHeight()-height){
+//            y=TankGame.getGameCliect().getScreenHeight()-height;
+//        }
+
+//        for(GameObject gameObject :TankGame.getGameCliect().getObjects()){
+//            if(gameObject!=this&&getRectangle().intersects(gameObject.getRectangle())){
+//                System.out.println("hit");
+//                x=oldX;
+//                y=oldY;
+//                break;
+//            }
+//        }
+    }
+
+    public boolean isCollisionBound(){
+        boolean isCollection=false;
+
         if(x<0){
             x=0;
+            isCollection=true;
         }else if(x>TankGame.getGameCliect().getScreenWidth()-width){
             x=TankGame.getGameCliect().getScreenWidth()-width;
+            isCollection=true;
         }
         if(y<0){
             y=0;
+            isCollection=true;
         }else if(y>TankGame.getGameCliect().getScreenHeight()-height){
             y=TankGame.getGameCliect().getScreenHeight()-height;
+            isCollection=true;
         }
+        return isCollection;
+    }
+    public boolean isCollisionObject(){
+        boolean isCollection=false;
+
+        for(GameObject gameObject :TankGame.getGameCliect().getObjects()){
+            if(gameObject!=this&&getRectangle().intersects(gameObject.getRectangle())){
+                System.out.println("hit");
+                x=oldX;
+                y=oldY;
+                 isCollection=true;
+                break;
+            }
+        }
+        return isCollection;
+    }
+
+    public boolean collision(){
+        boolean isCollision =false;
+        isCollision=isCollisionBound();
+        if(!isCollision){
+            isCollision=isCollisionObject();
+        }
+        return isCollision;
     }
 
     public void determineDirection() {
@@ -160,8 +214,11 @@ public class Tank extends GameObject {//繼承至GameObject
         if (isMoving()) {
             determineDirection();
             move();
+            collision();
         }
         //改寫坦克繪製方法(不每次重複讀取遊戲圖片)
         g.drawImage(image[direction.ordinal()], x, y, null);//按照方向(direction.ordinal())位置取圖形
     }
+
+
 }
