@@ -16,7 +16,11 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
     private List<Tank> enemyTanks = new ArrayList<>();//敵方坦克
     private List<Wall> walls = new ArrayList<>();//牆
     private Image BackGroundImg;
+    public static Image[] bulletImg= new Image[8];//子彈圖形
+
    private List<GameObject> objects = new ArrayList<>();//使用父類別進行集合類 型宣告
+
+
 
     GameCliect() {
         this(800, 600);//設定畫面大小
@@ -54,6 +58,7 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
         for (int i = 0; i < iTankImage.length; i++) {
             iTankImage[i] = Tool.getImage("itank" + sub[i] + ".png");
             eTankImage[i] = Tool.getImage("etank" + sub[i] + ".png");
+            bulletImg[i] = Tool.getImage("missile" + sub[i] + ".png");//增加子彈圖片
         }
 
         playerTank = new Tank(400, 50, Direction.DOWN,iTankImage);
@@ -107,6 +112,10 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
             case KeyEvent.VK_RIGHT:
                 dirs[3] = true;
                 break;
+
+            case KeyEvent.VK_A://新增按鍵功能->按下A(按鍵發射)
+                playerTank.fire();
+                break;
         }
     }
 
@@ -138,5 +147,10 @@ public class GameCliect extends JComponent { //GameClient繼承JComponent類別(
 
     public List<GameObject> getObjects() {
         return objects;
+    }
+
+    //增加物件方法
+    public void addGameObject(GameObject object) {
+        getObjects().add(object);
     }
 }

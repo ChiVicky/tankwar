@@ -5,8 +5,8 @@ import java.awt.*;
 public abstract class GameObject { //抽象類別(不能產生實體)
     protected int x;            //物件x軸位置
     protected int y;            //物件y軸位置
-    protected int oldX;            //物件上一個x軸位置
-    protected int oldY;            //物件上一個y軸位置
+    protected int oldX;            //物件上一個動作的x軸位置
+    protected int oldY;            //物件上一個動作的y軸位置
     protected Image[] image;    //物件的圖形陣列
     protected int width;        //物件的寬度
     protected int height;       //物件的長度
@@ -19,6 +19,7 @@ public abstract class GameObject { //抽象類別(不能產生實體)
         height=image[0].getHeight(null);//提取長度
     }
 
+    //取得物件的寬度
     public Rectangle getRectangle(){
         return new Rectangle(x,y,width,height);
     }

@@ -7,10 +7,10 @@ public class Tank extends GameObject {//繼承至GameObject
     //    private int x;                    //視窗x軸
     //    private int y;                    //視窗y軸
 
-    private Direction direction;            //方向
+    protected Direction direction;            //方向
     private int speed;                      //速度
     private boolean[] dirs = new boolean[4];//新增一個boolean變數->用來使用複合按鍵
-    private boolean enemy;                  //新增一個boolean變數->用來辨識敵方坦克
+    protected boolean enemy;                  //新增一個boolean變數->用來辨識敵方坦克
 
 
     //傳入圖形Image[] image(坦克有多種圖形)
@@ -22,8 +22,10 @@ public class Tank extends GameObject {//繼承至GameObject
     public Tank(int x, int y, Direction direction, boolean enemy, Image[] image) {
         super(x, y, image);//需呼叫父類別的建構方法
         this.direction = direction;
-        speed = 5;
+        speed = 10;
         this.enemy = enemy;
+        width=(int)(width*0.88);
+        height=(int)(height*0.88);
     }
 
     public int getSpeed() {
@@ -57,6 +59,13 @@ public class Tank extends GameObject {//繼承至GameObject
     public boolean[] getDirs() {
         return dirs;
     }
+
+    //子彈功能(Bullet)：新增發射功能(fire)
+    public void fire(){
+        Bullet bullet =new Bullet(x+(width-GameCliect.bulletImg[0].getWidth(null)/2),y+(height-GameCliect.bulletImg[0].getHeight(null)/2),direction,enemy,GameCliect.bulletImg);
+        TankGame.getGameCliect().addGameObject(bullet);
+    }
+
 
     public void move() {
         oldX=x;
@@ -134,6 +143,7 @@ public class Tank extends GameObject {//繼承至GameObject
     public boolean isCollisionObject(){
         boolean isCollection=false;
 
+        //用for迴圈取得所有的物件，再判斷是否有交集
         for(GameObject gameObject :TankGame.getGameCliect().getObjects()){
             if(gameObject!=this&&getRectangle().intersects(gameObject.getRectangle())){
                 System.out.println("hit");

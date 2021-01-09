@@ -21,8 +21,11 @@ public class Wall extends GameObject {//繼承至GameObject
         this.bricks = bricks;
     }
 
+    //覆寫getRectangle方法
+    //取得物件的寬度
     @Override
     public Rectangle getRectangle() {
+        //判斷是物件是水平還是垂直，取得不同的物件寬度
         return horizontal ? new Rectangle(x,y,bricks* width,height): new Rectangle(x,y,width,bricks*height);
     }
 
